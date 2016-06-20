@@ -9,6 +9,6 @@
     [Table("Student")]
     public partial class Student : ApplicationUser
     {
-
+        public virtual ICollection<GroupStudents> GroupStudents { get; set; }
     }
 }

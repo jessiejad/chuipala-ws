@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.ComponentModel.DataAnnotations;
 
 namespace chuipala_ws.Models
 {
@@ -16,9 +17,11 @@ namespace chuipala_ws.Models
             // Ajouter les revendications personnalisées de l’utilisateur ici
             return userIdentity;
         }
-        
+
+        [Display(Name = "Nom")]
         public string Name { get; set; }
-        
+
+        [Display(Name = "Prénom")]
         public string FirstName { get; set; }
                 
         public string DisplayFullName
@@ -30,12 +33,32 @@ namespace chuipala_ws.Models
                 return string.Format("{0} {1}", dspFirstName, dspName);
             }
         }
+
         public string Type
         {
             get
             {
-                if (this is Student) return "student";
-                return "professor";
+                if (IsStudent) return "Etudiant";
+                if (IsProfessor) return "Professeur";
+                return "Utilisateur";
+            }
+        }
+
+        [Display(Name = "Est Etudiant")]
+        public bool IsStudent
+        {
+            get
+            {
+                return (this is Student);
+            }
+        }
+
+        [Display(Name = "Est Professeur")]
+        public bool IsProfessor
+        {
+            get
+            {
+                return (this is Professor);
             }
         }
     }

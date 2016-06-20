@@ -10,6 +10,15 @@ namespace chuipala_ws.Models
     {
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<Professor> Professors { get; set; }
+        public virtual DbSet<Group> Groups { get; set; }
+        public virtual DbSet<Class> Classes { get; set; }
+        public virtual DbSet<Subject> Subjects { get; set; }
+        public virtual DbSet<GroupStudents> GroupStudents { get; set; }
+        public virtual DbSet<GroupClasses> GroupClasses { get; set; }
+        public virtual DbSet<Event> Events { get; set; }
+        public virtual DbSet<Absence> Absences { get; set; }
+        public virtual DbSet<Delay> Delays { get; set; }
+        public virtual DbSet<AbsenceClasses> AbsenceClasses { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

@@ -78,6 +78,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -141,9 +145,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System.Net.Http.Formatting">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
@@ -206,11 +207,28 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AbsencesController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\api\CLassEventsController.cs" />
+    <Compile Include="Controllers\api\FullAbsencesInfoController.cs" />
+    <Compile Include="Controllers\api\FullDelaysInfoController.cs" />
+    <Compile Include="Controllers\api\LastDelaysController.cs" />
+    <Compile Include="Controllers\api\LastAbsencesController.cs" />
+    <Compile Include="Controllers\api\UpdateDelayController.cs" />
+    <Compile Include="Controllers\api\UpdateAbsenceController.cs" />
+    <Compile Include="Controllers\api\NewDelayController.cs" />
+    <Compile Include="Controllers\api\NewAbsenceController.cs" />
+    <Compile Include="Controllers\api\DaysClassesController.cs" />
+    <Compile Include="Controllers\api\ApiDelaysController.cs" />
+    <Compile Include="Controllers\ClassesController.cs" />
+    <Compile Include="Controllers\DelaysController.cs" />
+    <Compile Include="Controllers\GroupsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProfessorsController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
+    <Compile Include="Controllers\SubjectsController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -222,7 +240,39 @@
     <Compile Include="Migrations\201606121552402_Init1.Designer.cs">
       <DependentUpon>201606121552402_Init1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201606131502298_Init2.cs" />
+    <Compile Include="Migrations\201606131502298_Init2.Designer.cs">
+      <DependentUpon>201606131502298_Init2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606131921502_Init3.cs" />
+    <Compile Include="Migrations\201606131921502_Init3.Designer.cs">
+      <DependentUpon>201606131921502_Init3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606140853400_Init4.cs" />
+    <Compile Include="Migrations\201606140853400_Init4.Designer.cs">
+      <DependentUpon>201606140853400_Init4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606141054429_Init5.cs" />
+    <Compile Include="Migrations\201606141054429_Init5.Designer.cs">
+      <DependentUpon>201606141054429_Init5.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AbsenceClasses.cs" />
+    <Compile Include="Models\dto\FullAbsenceDTO.cs" />
+    <Compile Include="Models\dto\FullDelayDTO.cs" />
+    <Compile Include="Models\dto\DelayDTO.cs" />
+    <Compile Include="Models\dto\AbsenceDTO.cs" />
+    <Compile Include="Models\dto\ClassEventsDTO.cs" />
+    <Compile Include="Models\dto\ClassDTO.cs" />
+    <Compile Include="Models\Delay.cs" />
+    <Compile Include="Models\Class.cs" />
+    <Compile Include="Models\Absence.cs" />
+    <Compile Include="Models\Event.cs" />
+    <Compile Include="Models\GroupClasses.cs" />
+    <Compile Include="Models\Subject.cs" />
+    <Compile Include="Models\Group.cs" />
+    <Compile Include="Models\GroupStudents.cs" />
+    <Compile Include="Models\UsersViewModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\Student.cs" />
@@ -244,6 +294,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config" />
+    <None Include="Properties\PublishProfiles\chuipala-ws.pubxml" />
     <None Include="Scripts\jquery-1.10.2-vsdoc.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -291,16 +342,52 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
+    <Content Include="Views\__Students\Create.cshtml" />
+    <Content Include="Views\__Students\Delete.cshtml" />
+    <Content Include="Views\__Students\Details.cshtml" />
+    <Content Include="Views\__Students\Edit.cshtml" />
+    <Content Include="Views\__Students\Index.cshtml" />
     <Content Include="Views\Students\Create.cshtml" />
-    <Content Include="Views\Students\Delete.cshtml" />
-    <Content Include="Views\Students\Details.cshtml" />
-    <Content Include="Views\Students\Edit.cshtml" />
     <Content Include="Views\Students\Index.cshtml" />
+    <Content Include="Views\Students\Delete.cshtml" />
+    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Users\Delete.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Students\Edit.cshtml" />
+    <Content Include="Views\Students\Details.cshtml" />
     <Content Include="Views\Professors\Create.cshtml" />
     <Content Include="Views\Professors\Delete.cshtml" />
     <Content Include="Views\Professors\Details.cshtml" />
     <Content Include="Views\Professors\Edit.cshtml" />
     <Content Include="Views\Professors\Index.cshtml" />
+    <Content Include="Views\Subjects\Create.cshtml" />
+    <Content Include="Views\Subjects\Delete.cshtml" />
+    <Content Include="Views\Subjects\Details.cshtml" />
+    <Content Include="Views\Subjects\Edit.cshtml" />
+    <Content Include="Views\Subjects\Index.cshtml" />
+    <Content Include="Views\Groups\Create.cshtml" />
+    <Content Include="Views\Groups\Delete.cshtml" />
+    <Content Include="Views\Groups\Details.cshtml" />
+    <Content Include="Views\Groups\Edit.cshtml" />
+    <Content Include="Views\Groups\Index.cshtml" />
+    <Content Include="Views\Groups\Students.cshtml" />
+    <Content Include="Views\Classes\Create.cshtml" />
+    <Content Include="Views\Classes\Delete.cshtml" />
+    <Content Include="Views\Classes\Details.cshtml" />
+    <Content Include="Views\Classes\Edit.cshtml" />
+    <Content Include="Views\Classes\Index.cshtml" />
+    <Content Include="Views\Absences\Create.cshtml" />
+    <Content Include="Views\Absences\Delete.cshtml" />
+    <Content Include="Views\Absences\Details.cshtml" />
+    <Content Include="Views\Absences\Edit.cshtml" />
+    <Content Include="Views\Absences\Index.cshtml" />
+    <Content Include="Views\Absences\Classes.cshtml" />
+    <None Include="Views\Classes\Groups.cshtml" />
+    <Content Include="Views\Delays\Create.cshtml" />
+    <Content Include="Views\Delays\Delete.cshtml" />
+    <Content Include="Views\Delays\Details.cshtml" />
+    <Content Include="Views\Delays\Edit.cshtml" />
+    <Content Include="Views\Delays\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -322,6 +409,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201606121552402_Init1.resx">
       <DependentUpon>201606121552402_Init1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606131502298_Init2.resx">
+      <DependentUpon>201606131502298_Init2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606131921502_Init3.resx">
+      <DependentUpon>201606131921502_Init3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606140853400_Init4.resx">
+      <DependentUpon>201606140853400_Init4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606141054429_Init5.resx">
+      <DependentUpon>201606141054429_Init5.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

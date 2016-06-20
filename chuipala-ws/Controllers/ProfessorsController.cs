@@ -1,18 +1,64 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
-using System.Net;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 using chuipala_ws.Models;
+using Newtonsoft.Json;
+using System.Net;
+using System.Data.Entity;
+using System.Web.Security;
 
 namespace chuipala_ws.Controllers
 {
     public class ProfessorsController : Controller
     {
+        
         private ApplicationDbContext db = new ApplicationDbContext();
+        
+        private ApplicationSignInManager _signInManager;
+        private ApplicationUserManager _userManager;
+
+        public ProfessorsController()
+        {
+        }
+
+        public ProfessorsController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        {
+            UserManager = userManager;
+            SignInManager = signInManager;
+        }
+
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set 
+            { 
+                _signInManager = value; 
+            }
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
+
 
         // GET: Professors
         public ActionResult Index()
@@ -42,20 +88,22 @@ namespace chuipala_ws.Controllers
         }
 
         // POST: Professors/Create
-        // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
-        // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,FirstName,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] Professor professor)
+        public async Task<ActionResult> Create(CreateUserViewModel model)
         {
             if (ModelState.IsValid)
             {
-                db.Professors.Add(professor);
-                db.SaveChanges();
+                var professor = new Professor { UserName = model.Email, Email = model.Email, Name = model.Name, FirstName = model.FirstName };
+                var result = await UserManager.CreateAsync(professor, model.Password);
+                /*if (result.Succeeded)
+                {
+                       
+                }*/
                 return RedirectToAction("Index");
             }
 
-            return View(professor);
+            // Si nous sommes arrivés là, un échec s’est produit. Réafficher le formulaire
+            return View(model);
         }
 
         // GET: Professors/Edit/5
@@ -74,8 +122,6 @@ namespace chuipala_ws.Controllers
         }
 
         // POST: Professors/Edit/5
-        // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
-        // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name,FirstName,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] Professor professor)

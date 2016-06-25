@@ -10,7 +10,7 @@ using System.Web.Http;
 
 namespace chuipala_ws.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class ClassEventsController : ApiController
     {
 
@@ -35,7 +35,7 @@ namespace chuipala_ws.Controllers
                             where ac.ClassID == id
                             select a).ToList();
 
-            foreach (Delay delay in delays)
+            foreach (Delay delay in delays.Where(x => x.User.IsStudent))
             {
                 cedto.Delays.Add(
                     new DelayDTO
@@ -48,7 +48,7 @@ namespace chuipala_ws.Controllers
                     );
             }
 
-            foreach (Absence absence in absences)
+            foreach (Absence absence in absences.Where(x => x.User.IsStudent))
             {
                 cedto.Absences.Add(
                     new AbsenceDTO

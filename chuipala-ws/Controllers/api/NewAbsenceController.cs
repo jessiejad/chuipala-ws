@@ -11,7 +11,7 @@ using System.Web.Http;
 
 namespace chuipala_ws.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class NewAbsenceController : ApiController
     {
 
@@ -25,14 +25,20 @@ namespace chuipala_ws.Controllers
                 return;
             }
             
-            DateTime begin = data["begin"].ToObject<DateTime>();
-            DateTime end = data["end"].ToObject<DateTime>();
+            DateTime beginUNI = data["begin"].ToObject<DateTime>();
+            DateTime endUNI = data["end"].ToObject<DateTime>();
             string reason = data["reason"].ToString();
-            
+
+            string zoneId = "Romance Standard Time";
+            TimeZoneInfo zone = TimeZoneInfo.FindSystemTimeZoneById(zoneId);
+
+            DateTime begin = TimeZoneInfo.ConvertTime(beginUNI, zone);
+            DateTime end = TimeZoneInfo.ConvertTime(endUNI, zone);
+
             //string reason = "ma";
             // En rapport avec l'user qui demande
-            //var UserID = User.Identity.GetUserId().ToString();
-            var UserID = "726efadb-0295-4e5d-863c-1e9ff5b304a4";
+            var UserID = User.Identity.GetUserId().ToString();
+            //var UserID = "726efadb-0295-4e5d-863c-1e9ff5b304a4";
 
             Absence absence = new Absence
             {
@@ -42,18 +48,16 @@ namespace chuipala_ws.Controllers
                 UserID = UserID
             };
 
-            TimeSpan value = begin - end;
+            TimeSpan value = end - begin;
             if (value.Days <= 0)
             {
                 absence.Value = value.Hours;
                 absence.ValueUnit = "h";
-                if (value.Hours > 1) absence.ValueUnit += "s";
             }
             else
             {
                 absence.Value = value.Days;
                 absence.ValueUnit = "j";
-                if (value.Days > 1) absence.ValueUnit += "s";
             }
 
             var dbAbsence = db.Absences.Add(absence);

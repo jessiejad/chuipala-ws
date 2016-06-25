@@ -11,7 +11,7 @@ using System.Web.Http;
 
 namespace chuipala_ws.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class UpdateAbsenceController : ApiController
     {
 
@@ -26,12 +26,18 @@ namespace chuipala_ws.Controllers
             }
 
             int id = data["id"].ToObject<int>();
-            DateTime begin = data["begin"].ToObject<DateTime>();
-            DateTime end = data["end"].ToObject<DateTime>();
+            DateTime beginUNI = data["begin"].ToObject<DateTime>();
+            DateTime endUNI = data["end"].ToObject<DateTime>();
             string reason = data["reason"].ToString();
-            
-            //var UserID = User.Identity.GetUserId().ToString();
-            var UserID = "726efadb-0295-4e5d-863c-1e9ff5b304a4";
+
+            string zoneId = "Romance Standard Time";
+            TimeZoneInfo zone = TimeZoneInfo.FindSystemTimeZoneById(zoneId);
+
+            DateTime begin = TimeZoneInfo.ConvertTime(beginUNI, zone);
+            DateTime end = TimeZoneInfo.ConvertTime(endUNI, zone);
+
+            var UserID = User.Identity.GetUserId().ToString();
+            //var UserID = "726efadb-0295-4e5d-863c-1e9ff5b304a4";
 
             var absence = db.Absences.Find(id);
 
@@ -48,7 +54,7 @@ namespace chuipala_ws.Controllers
                 return;
             }
             
-            TimeSpan value = begin - end;
+            TimeSpan value = end - begin;
             if (value.Days <= 0)
             {
                 absence.Value = value.Hours;

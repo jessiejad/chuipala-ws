@@ -10,7 +10,7 @@ using System.Web.Http;
 
 namespace chuipala_ws.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class FullAbsencesInfoController : ApiController
     {
 
@@ -49,7 +49,8 @@ namespace chuipala_ws.Controllers
                     StartTime = @class.StartDateTime.ToString("H:mm"),
                     EndTime = @class.EndDateTime.ToString("H:mm"),
                     SubjectLabel = @class.SubjectLabel,
-                    ProfessorFullName = @class.ProfessorIdentity
+                    ProfessorFullName = @class.ProfessorIdentity,
+                    Groups = @class.GroupsNames
                 });
             }
             

@@ -12,6 +12,7 @@ namespace chuipala_ws.Models
         public int Value { get; set; }
         public string ValueUnit { get; set; }
         public int EventID { get; set; }
+        public string ConcernedDate { get; set; }
 
         public ClassDTO ConcernedClass { get; set; }
     }

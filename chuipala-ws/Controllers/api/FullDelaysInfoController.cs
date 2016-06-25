@@ -10,7 +10,7 @@ using System.Web.Http;
 
 namespace chuipala_ws.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class FullDelaysInfoController : ApiController
     {
 
@@ -35,6 +35,7 @@ namespace chuipala_ws.Controllers
                 Value = delay.Value,
                 ValueUnit = delay.ValueUnit,
                 EventID = delay.EventID,
+                ConcernedDate = delay.ConcernedDate(),
                 ConcernedClass = new ClassDTO
                 {
                     ClassID = delay.Class.ClassID,
@@ -43,7 +44,8 @@ namespace chuipala_ws.Controllers
                     StartTime = delay.Class.StartDateTime.ToString("H:mm"),
                     EndTime = delay.Class.EndDateTime.ToString("H:mm"),
                     SubjectLabel = delay.Class.SubjectLabel,
-                    ProfessorFullName = delay.Class.ProfessorIdentity
+                    ProfessorFullName = delay.Class.ProfessorIdentity,
+                    Groups = delay.Class.GroupsNames
                 }
             };
 

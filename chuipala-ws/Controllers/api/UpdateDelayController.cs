@@ -11,7 +11,7 @@ using System.Web.Http;
 
 namespace chuipala_ws.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class UpdateDelayController : ApiController
     {
 
@@ -26,11 +26,15 @@ namespace chuipala_ws.Controllers
             }
 
             int id = data["id"].ToObject<int>();
-            DateTime arrival = data["arrival"].ToObject<DateTime>();
+            DateTime arrivalUNI = data["arrival"].ToObject<DateTime>();
             string reason = data["reason"].ToString();
 
-            //var UserID = User.Identity.GetUserId().ToString();
-            var UserID = "726efadb-0295-4e5d-863c-1e9ff5b304a4";
+            string zoneId = "Romance Standard Time";
+            TimeZoneInfo zone = TimeZoneInfo.FindSystemTimeZoneById(zoneId);
+            DateTime arrival = TimeZoneInfo.ConvertTime(arrivalUNI, zone);
+
+            var UserID = User.Identity.GetUserId().ToString();
+            //var UserID = "726efadb-0295-4e5d-863c-1e9ff5b304a4";
 
             var delay = db.Delays.Find(id);
 

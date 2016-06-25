@@ -9,6 +9,10 @@ namespace chuipala_ws.Models
     {
         public int ClassID { get; set; }
 
+        public DateTime FullStartDate { get; set; }
+        public DateTime PreSetDelayDate { get; set; }
+        public DateTime FullEndDate { get; set; }
+
         public string StartDate { get; set; }
         public string EndDate { get; set; }
 
@@ -21,5 +25,7 @@ namespace chuipala_ws.Models
         public int NbAbsences { get; set; }
         public bool IsProfessorAbsent { get; set; }
         public bool IsProfessorLate { get; set; }
+
+        public IEnumerable<string> Groups { get; set; }
     }
 }

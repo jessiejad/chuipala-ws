@@ -11,7 +11,7 @@ using System.Web.Http;
 
 namespace chuipala_ws.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class NewDelayController : ApiController
     {
 
@@ -20,21 +20,26 @@ namespace chuipala_ws.Controllers
         // POST: api/NewDelay
         public void Post(JObject data)
         {
+
             if(data == null)
             {
                 return;
             }
             
-            DateTime arrival = data["arrival"].ToObject<DateTime>();
+            DateTime arrivalUNI = data["arrival"].ToObject<DateTime>();
             string reason = data["reason"].ToString();
-            
-            //var UserID = User.Identity.GetUserId().ToString();
-            var UserID = "726efadb-0295-4e5d-863c-1e9ff5b304a4";
+
+            string zoneId = "Romance Standard Time";
+            TimeZoneInfo zone = TimeZoneInfo.FindSystemTimeZoneById(zoneId);
+            DateTime arrival = TimeZoneInfo.ConvertTime(arrivalUNI, zone);
+
+            var UserID = User.Identity.GetUserId().ToString();
+            //var UserID = "726efadb-0295-4e5d-863c-1e9ff5b304a4";
 
             // Searching for the class concerned
 
 
-            int concernedClasses;
+            IEnumerable<int> concernedClasses;
             // Penser à faire en fonction des cours auquel user participe
             var user = db.Users.Find(UserID);
 
@@ -48,7 +53,7 @@ namespace chuipala_ws.Controllers
                 concernedClasses = (from c in db.Classes
                                     where c.ProfessorID == user.Id
                                     where (c.StartDateTime.CompareTo(arrival) <= 0 && c.EndDateTime.CompareTo(arrival) >= 0)
-                                    select c.ClassID).First();
+                                    select c.ClassID);
             }
             else
             {
@@ -58,10 +63,15 @@ namespace chuipala_ws.Controllers
                                     join gs in db.GroupStudents on @group.GroupID equals gs.GroupID
                                     where (gs.StudentID == user.Id)
                                     where (c.StartDateTime.CompareTo(arrival) <= 0 && c.EndDateTime.CompareTo(arrival) >= 0)
-                                    select c.ClassID).First();
+                                    select c.ClassID);
             }
-            
-            var @class = db.Classes.Find(concernedClasses);
+            if(!concernedClasses.Any())
+            {
+                return;
+            }
+
+            var concernedClass = concernedClasses.First();
+            var @class = db.Classes.Find(concernedClass);
 
             if (@class == null)
             {
@@ -80,8 +90,6 @@ namespace chuipala_ws.Controllers
                 v = value.Hours;
                 vUnit = "h";
             }
-
-
 
             Delay delay = new Delay
             {

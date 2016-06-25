@@ -10,7 +10,7 @@ using System.Web.Http;
 
 namespace chuipala_ws.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class LastDelaysController : ApiController
     {
 
@@ -19,8 +19,8 @@ namespace chuipala_ws.Controllers
         // GET: api/LastDelays
         public IEnumerable<DelayDTO> Get()
         {
-            //var UserID = User.Identity.GetUserId().ToString();
-            var UserID = "726efadb-0295-4e5d-863c-1e9ff5b304a4";
+            var UserID = User.Identity.GetUserId().ToString();
+            //var UserID = "726efadb-0295-4e5d-863c-1e9ff5b304a4";
 
 
             // Date format : ToString("dd/MM/yyy")

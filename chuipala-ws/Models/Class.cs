@@ -73,5 +73,21 @@
             }
         }
         
+        public IEnumerable<string> GroupsNames
+        {
+            get
+            {
+                var lst = new List<string>();
+                if (GroupClasses == null)
+                {
+                    return lst;
+                }
+                foreach(GroupClasses gc in GroupClasses)
+                {
+                    lst.Add(gc.getGroupName);
+                }
+                return lst;
+            }
+        }
     }
 }

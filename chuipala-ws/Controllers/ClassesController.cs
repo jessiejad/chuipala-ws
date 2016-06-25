@@ -10,6 +10,7 @@ using chuipala_ws.Models;
 
 namespace chuipala_ws.Controllers
 {
+    //[Authorize]
     public class ClassesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

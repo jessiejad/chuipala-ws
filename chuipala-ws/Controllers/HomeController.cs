@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace chuipala_ws.Controllers
 {
@@ -10,6 +11,11 @@ namespace chuipala_ws.Controllers
     {
         public ActionResult Index()
         {
+            // Creating Role we need and adding it to User
+            //var b = Roles.RoleExists("Admin");
+            /*Roles.CreateRole("Admin");
+            Roles.CreateRole("Student");
+            Roles.CreateRole("Professor");*/
             return View();
         }
 

@@ -78,6 +78,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin.Cors, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Cors.3.0.1\lib\net45\Microsoft.Owin.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -85,6 +89,10 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Cors, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.0.0\lib\net45\System.Web.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -210,6 +218,7 @@
     <Compile Include="Controllers\AbsencesController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\api\CLassEventsController.cs" />
+    <Compile Include="Controllers\api\UsersInfoController.cs" />
     <Compile Include="Controllers\api\FullAbsencesInfoController.cs" />
     <Compile Include="Controllers\api\FullDelaysInfoController.cs" />
     <Compile Include="Controllers\api\LastDelaysController.cs" />
@@ -256,8 +265,17 @@
     <Compile Include="Migrations\201606141054429_Init5.Designer.cs">
       <DependentUpon>201606141054429_Init5.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201606201616210_Init6.cs" />
+    <Compile Include="Migrations\201606201616210_Init6.Designer.cs">
+      <DependentUpon>201606201616210_Init6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606201750537_Init7.cs" />
+    <Compile Include="Migrations\201606201750537_Init7.Designer.cs">
+      <DependentUpon>201606201750537_Init7.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AbsenceClasses.cs" />
+    <Compile Include="Models\dto\UserDTO.cs" />
     <Compile Include="Models\dto\FullAbsenceDTO.cs" />
     <Compile Include="Models\dto\FullDelayDTO.cs" />
     <Compile Include="Models\dto\DelayDTO.cs" />
@@ -267,6 +285,10 @@
     <Compile Include="Models\Delay.cs" />
     <Compile Include="Models\Class.cs" />
     <Compile Include="Models\Absence.cs" />
+    <Compile Include="Models\GroupProfessors.cs" />
+    <Compile Include="Models\GroupHomeworks.cs" />
+    <Compile Include="Models\Tip.cs" />
+    <Compile Include="Models\Homework.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\GroupClasses.cs" />
     <Compile Include="Models\Subject.cs" />
@@ -280,6 +302,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -421,6 +444,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201606141054429_Init5.resx">
       <DependentUpon>201606141054429_Init5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606201616210_Init6.resx">
+      <DependentUpon>201606201616210_Init6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606201750537_Init7.resx">
+      <DependentUpon>201606201750537_Init7.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

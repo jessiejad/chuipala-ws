@@ -52,6 +52,7 @@ namespace chuipala_ws.Controllers
             }
         }
 
+        public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
         //
         // GET: /Account/Login
         [AllowAnonymous]

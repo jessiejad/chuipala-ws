@@ -17,6 +17,17 @@
         public int ClassID { get; set; }
         public virtual Class Class { get; set; }
 
+        public string getGroupName
+        {
+            get
+            {
+                if (Group == null)
+                {
+                    return "";
+                }
+                return Group.Name;
+            }
+        }
         /*
         public int NbStudents
         {

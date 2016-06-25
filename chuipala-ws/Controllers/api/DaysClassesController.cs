@@ -10,7 +10,7 @@ using System.Web.Http;
 
 namespace chuipala_ws.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class DaysClassesController : ApiController
     {
 
@@ -20,8 +20,8 @@ namespace chuipala_ws.Controllers
         public IEnumerable<ClassDTO> Get()
         {
             // En rapport avec l'user qui demande
-            //var UserID = User.Identity.GetUserId().ToString();
-            var UserID = "4e5eb817-f51a-4c62-a5fe-650c08032cb2";
+            var UserID = User.Identity.GetUserId().ToString();
+            //var UserID = "4e5eb817-f51a-4c62-a5fe-650c08032cb2";
 
             List<ClassDTO> ldto = new List<ClassDTO>();
             
@@ -36,31 +36,40 @@ namespace chuipala_ws.Controllers
 
             if (user.IsProfessor)
             {
-                classes = db.Classes.Where(x => x.ProfessorID == UserID);
+                //classes = db.Classes.Where(x => x.ProfessorID == UserID);
+                classes = (from @class in db.Classes
+                           where @class.ProfessorID == user.Id
+                           select @class).ToList().OrderBy(x => x.StartDateTime);
             } else
             {
                 classes = (from @class in db.Classes
                            join gc in db.GroupClasses on @class.ClassID equals gc.ClassID
                            join @group in db.Groups on gc.GroupID equals @group.GroupID
                            join gs in db.GroupStudents on @group.GroupID equals gs.GroupID
-                           where (gs.StudentID == UserID)
-                           select @class).ToList();
+                           where (gs.StudentID == user.Id)
+                           select @class).ToList().OrderBy(x => x.StartDateTime);
             }
 
-            foreach (Class @class in db.Classes)
+            foreach (Class @class in classes.Where(x => x.StartDateTime.Date == DateTime.Now.Date))
             {
+                /*
                 if(@class.StartDateTime.Date != DateTime.Now.Date)
                 {
                     continue;
-                }
-                var nbAbsences = db.AbsenceClasses.Where(x => x.ClassID == @class.ClassID).Count(); ;
-                var nbDelays = db.Delays.Where(x => x.ClassID == @class.ClassID).Count();
+                }*/
+                var abs = db.AbsenceClasses.Where(x => x.ClassID == @class.ClassID).ToList();
+                var rts = db.Delays.Where(x => x.ClassID == @class.ClassID).ToList();
+                var nbAbsences =  abs.Where(x => x.Absence.User.IsStudent).Count();
+                var nbDelays = rts.Where(x => x.User.IsStudent).Count();
 
                 var isProfessorAbsent = db.AbsenceClasses.Where(x => x.ClassID == @class.ClassID && x.Absence.UserID == @class.ProfessorID).Any();
                 var isProfessorLate = db.Delays.Where(x => x.ClassID == @class.ClassID && x.UserID == @class.ProfessorID).Any();
 
                 ldto.Add(new ClassDTO {
                     ClassID = @class.ClassID,
+                    PreSetDelayDate = @class.StartDateTime.AddMinutes(15),
+                    FullStartDate = @class.StartDateTime,
+                    FullEndDate = @class.EndDateTime,
                     StartTime = @class.StartDateTime.ToString("H:mm"),
                     EndTime = @class.EndDateTime.ToString("H:mm"),
                     SubjectLabel = @class.SubjectLabel,

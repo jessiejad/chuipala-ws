@@ -13,6 +13,8 @@
         public int GroupID { get; set; }
         public virtual ICollection<GroupStudents> GroupStudents { get; set; }
         public virtual ICollection<GroupClasses> GroupClasses { get; set; }
+        public virtual ICollection<GroupHomeworks> GroupHomeworks { get; set; }
+        public virtual ICollection<GroupProfessors> GroupProfessors { get; set; }
 
         [Display(Name = "Nom")]
         public string Name { get; set; }

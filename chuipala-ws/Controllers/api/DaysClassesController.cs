@@ -65,6 +65,9 @@ namespace chuipala_ws.Controllers
                 var isProfessorAbsent = db.AbsenceClasses.Where(x => x.ClassID == @class.ClassID && x.Absence.UserID == @class.ProfessorID).Any();
                 var isProfessorLate = db.Delays.Where(x => x.ClassID == @class.ClassID && x.UserID == @class.ProfessorID).Any();
 
+                var isUserAbsent = db.AbsenceClasses.Where(x => x.ClassID == @class.ClassID && x.Absence.UserID == user.Id).Any();
+                var isUserLate = db.Delays.Where(x => x.ClassID == @class.ClassID && x.UserID == user.Id).Any();
+
                 ldto.Add(new ClassDTO {
                     ClassID = @class.ClassID,
                     PreSetDelayDate = @class.StartDateTime.AddMinutes(15),
@@ -77,7 +80,9 @@ namespace chuipala_ws.Controllers
                     NbAbsences = nbAbsences,
                     NbDelays = nbDelays,
                     IsProfessorAbsent = isProfessorAbsent,
-                    IsProfessorLate = isProfessorLate
+                    IsProfessorLate = isProfessorLate,
+                    IsUserAbsent = isUserAbsent,
+                    IsUserLate = isUserLate
                 });
             }
            

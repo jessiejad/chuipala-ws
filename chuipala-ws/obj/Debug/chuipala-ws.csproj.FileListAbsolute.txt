@@ -342,16 +342,16 @@ F:\chuipala-ws\chuipala-ws\obj\Debug\chuipala-ws.csproj.GenerateResource.Cache
 F:\chuipala-ws\chuipala-ws\obj\Debug\chuipala-ws.dll
 F:\chuipala-ws\chuipala-ws\obj\Debug\chuipala-ws.pdb
 C:\Users\jessi\Documents\GitHub\chuipala-ws\chuipala-ws\bin\roslyn\csc.exe
-C:\Users\jessi\Documents\GitHub\chuipala-ws\chuipala-ws\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
 C:\Users\jessi\Documents\GitHub\chuipala-ws\chuipala-ws\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
 C:\Users\jessi\Documents\GitHub\chuipala-ws\chuipala-ws\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\jessi\Documents\GitHub\chuipala-ws\chuipala-ws\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\jessi\Documents\GitHub\chuipala-ws\chuipala-ws\bin\roslyn\VBCSCompiler.exe
+C:\Users\jessi\Documents\GitHub\chuipala-ws\chuipala-ws\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
 C:\Users\jessi\Documents\GitHub\chuipala-ws\chuipala-ws\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
 C:\Users\jessi\Documents\GitHub\chuipala-ws\chuipala-ws\bin\roslyn\Microsoft.CSharp.Core.targets
 C:\Users\jessi\Documents\GitHub\chuipala-ws\chuipala-ws\bin\roslyn\Microsoft.VisualBasic.Core.targets
-C:\Users\jessi\Documents\GitHub\chuipala-ws\chuipala-ws\bin\roslyn\System.Collections.Immutable.dll
 C:\Users\jessi\Documents\GitHub\chuipala-ws\chuipala-ws\bin\roslyn\System.Reflection.Metadata.dll
 C:\Users\jessi\Documents\GitHub\chuipala-ws\chuipala-ws\bin\roslyn\vbc.exe
-C:\Users\jessi\Documents\GitHub\chuipala-ws\chuipala-ws\bin\roslyn\VBCSCompiler.exe
 C:\Users\jessi\Documents\GitHub\chuipala-ws\chuipala-ws\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\jessi\Documents\GitHub\chuipala-ws\chuipala-ws\bin\chuipala-ws.dll.config
 C:\Users\jessi\Documents\GitHub\chuipala-ws\chuipala-ws\bin\chuipala-ws.dll
@@ -461,4 +461,3 @@ C:\Users\jessi\Documents\GitHub\chuipala-ws\chuipala-ws\obj\Debug\chuipala_ws.Mi
 C:\Users\jessi\Documents\GitHub\chuipala-ws\chuipala-ws\obj\Debug\chuipala-ws.csproj.GenerateResource.Cache
 C:\Users\jessi\Documents\GitHub\chuipala-ws\chuipala-ws\obj\Debug\chuipala-ws.dll
 C:\Users\jessi\Documents\GitHub\chuipala-ws\chuipala-ws\obj\Debug\chuipala-ws.pdb
-C:\Users\jessi\Documents\GitHub\chuipala-ws\chuipala-ws\obj\Debug\chuipala-ws.csprojResolveAssemblyReference.cache

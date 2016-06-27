@@ -26,6 +26,9 @@ namespace chuipala_ws.Models
         public bool IsProfessorAbsent { get; set; }
         public bool IsProfessorLate { get; set; }
 
+        public bool IsUserAbsent { get; set; }
+        public bool IsUserLate { get; set; }
+
         public IEnumerable<string> Groups { get; set; }
     }
 }

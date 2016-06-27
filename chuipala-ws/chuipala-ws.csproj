@@ -317,7 +317,9 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config" />
+    <None Include="Properties\PublishProfiles\chuipala-ws %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\chuipala-ws.pubxml" />
+    <None Include="Properties\PublishProfiles\chuipala-ws2.pubxml" />
     <None Include="Scripts\jquery-1.10.2-vsdoc.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
